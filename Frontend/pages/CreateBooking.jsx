@@ -1,69 +1,115 @@
+// Frontend/src/pages/CreateBooking.jsx
+
 import React, { useState } from "react";
-import axios from "axios"
+import axios from "axios";
+import { useNavigate } from "react-router-dom"; 
+import './CreateBooking.css'; // Uses dedicated styles
+
+const API_BASE_URL = process.env.REACT_APP_API_URL;
+
 function CreateBooking() {
-  const [userForm,setUserForm]=useState({
-    name: "",
-    ename: "",
-    dates:"",
-    seatno: "",
-    price: "",
+    const navigate = useNavigate();
+    
+    const [bookingForm, setBookingForm] = useState({
+        userName: "",         
+        eventName: "",         
+        eventDate: "",         
+        ticketsQuantity: "",   
+        totalPrice: "",        
+        userEmail: "",        
+    });
 
-  });
+    const [message, setMessage] = useState('');
 
-  const inputsHandler=(e)=>{
-    setUserForm((prev)=>({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }))
-  }
-  const onSubmit=(e)=>{
-    e.preventDefault();
-    axios.post("http://localhost:4000/bookings/create-booking",userForm)
-    .then((res)=>{
-      console.log(res.data);
-      setUserForm({
-        name: "",
-        ename: "",
-        dates:"",
-        seatno: "",
-        price: "",
-      })
-    })
-  }
-  return(
-    <div>
-      <div className='form-wrapper' style={{padding:"30px",backgroundColor:'	#404040',color:'white',width:'1227px',height:'500px'}}>
-        <form onSubmit={onSubmit}>
-          <div className='mb-3'>
-            <label className='form-label'>Customer Name</label>
-            <input type="text" name="name" id="name" className='form-control' value={userForm.name} onChange={inputsHandler} />
-          </div>
-          <div className='mb-3'>
-            <label className='form-label'>Event Name</label>
-            <input type="text" name="ename" id="ename" className='form-control' value={userForm.text} onChange={inputsHandler} />
-          </div>
-          <div className='mb-3'>
-            <label className='form-label'>Booking Date</label>
-            <input type="date" name="dates" id="dates" className='form-control' value={userForm.dates} onChange={inputsHandler} />
-          </div>
+    const inputsHandler = (e) => {
+        const { name, value } = e.target;
+        setBookingForm((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+    };
 
-          <div className='mb-3'>
-            
-            <label className='form-label'>Seat Number</label>
-            <input type="text" name="seatno" id="seatno" className='form-control' value={userForm.seatno} onChange={inputsHandler} />
-          </div>
+    const onSubmit = (e) => {
+        e.preventDefault();
+        setMessage('Processing booking...');
 
-          <div className='mb-3'>
-            <label className='form-label'>Ticket Price</label>
-            <input type="number" name="price" id="price" className='form-control' value={userForm.price} onChange={inputsHandler} />
-          </div>
+        const apiUrl = `${API_BASE_URL}/create`;
+        
+        const dataToSend = {
+            ...bookingForm,
+            ticketsQuantity: Number(bookingForm.ticketsQuantity),
+            totalPrice: Number(bookingForm.totalPrice),
+            eventDate: new Date(bookingForm.eventDate).toISOString(),
+        };
 
-          <div className='mb-3'>
-            <button type="submit" className='btn btn-primary'>ADD BOOKING</button>
-          </div>
-          </form>
-      </div>
-    </div>
-  )
+        axios.post(apiUrl, dataToSend)
+            .then((res) => {
+                setMessage('Booking successful! Redirecting...');
+                setBookingForm({
+                    userName: "", eventName: "", eventDate: "", ticketsQuantity: "", totalPrice: "", userEmail: ""
+                });
+                navigate('/booking-list'); 
+            })
+            .catch((error) => {
+                setMessage(`Error: ${error.response ? error.response.data.message : 'Could not connect to server.'}`);
+            });
+    };
+
+    return (
+        <div className="create-booking-page">
+            <div className='form-card card'>
+                <h2>Book a Ticket</h2>
+                <p className="message-feedback">{message}</p>
+                
+                <form onSubmit={onSubmit}>
+                    <div className='form-group'>
+                        <label htmlFor='userName'>Customer Name</label>
+                        <input type="text" name="userName" id="userName" required
+                            value={bookingForm.userName} onChange={inputsHandler} 
+                            placeholder="Enter your full name" />
+                    </div>
+
+                    <div className='form-group'>
+                        <label htmlFor='userEmail'>Email</label>
+                        <input type="email" name="userEmail" id="userEmail" required
+                            value={bookingForm.userEmail} onChange={inputsHandler} 
+                            placeholder="Enter your email" />
+                    </div>
+
+                    <div className='form-group'>
+                        <label htmlFor='eventName'>Event Name</label>
+                        <input type="text" name="eventName" id="eventName" required
+                            value={bookingForm.eventName} onChange={inputsHandler} 
+                            placeholder="e.g., Global Tech Summit" />
+                    </div>
+                    
+                    <div className='form-group'>
+                        <label htmlFor='eventDate'>Event Date</label>
+                        <input type="date" name="eventDate" id="eventDate" required
+                            value={bookingForm.eventDate} onChange={inputsHandler} />
+                    </div>
+
+                    <div className='form-group'>
+                        <label htmlFor='ticketsQuantity'>Number of Tickets</label>
+                        <input type="number" name="ticketsQuantity" id="ticketsQuantity" required min="1"
+                            value={bookingForm.ticketsQuantity} onChange={inputsHandler} 
+                            placeholder="Minimum 1 ticket" />
+                    </div>
+
+                    <div className='form-group'>
+                        <label htmlFor='totalPrice'>Total Price (₹)</label>
+                        <input type="number" name="totalPrice" id="totalPrice" required min="1" step="0.01"
+                            value={bookingForm.totalPrice} onChange={inputsHandler} 
+                            placeholder="e.g., 999.00" />
+                    </div>
+
+                    <div className='form-submit'>
+                        <button type="submit" className='btn-primary'>CONFIRM BOOKING</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    );
 }
-export default CreateBooking
+
+export default CreateBooking;

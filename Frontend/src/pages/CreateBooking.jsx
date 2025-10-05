@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom"; 
 // 💡 CRITICAL FIX: Changing the import name to match the file on disk (Creating.css)
-import './Creating.css'; 
+import './CreateBooking.css'; 
 
 const API_BASE_URL = process.env.REACT_APP_API_URL;
 

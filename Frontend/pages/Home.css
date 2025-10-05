@@ -1,0 +1,135 @@
+/* Frontend/src/pages/Home.css */
+
+/* --- 1. HERO SECTION STYLING --- */
+.hero-section {
+    background-color: var(--color-surface-dark);
+    padding: 80px 40px;
+    margin-bottom: 40px;
+    border-radius: var(--border-radius-base);
+    text-align: center;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Adding a subtle gradient or border for extra depth */
+    border: 1px solid var(--color-border);
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 10px;
+}
+
+.hero-content .subtitle {
+    font-size: 1.3rem;
+    color: var(--color-text-light);
+    margin-bottom: 30px;
+    opacity: 0.8;
+}
+
+.hero-cta {
+    /* Uses the existing .btn-primary from App.css */
+    padding: 15px 40px;
+    font-size: 1.1rem;
+}
+
+/* --- 2. FEATURED EVENTS SECTION --- */
+
+.featured-events-section h2 {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 40px;
+    padding-bottom: 10px;
+}
+
+.events-grid {
+    display: grid;
+    /* Bento Box-style layout for visual appeal */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.event-card {
+    /* Inherits .card styles from App.css (dark background, shadow) */
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.event-image-placeholder {
+    height: 180px;
+    background: linear-gradient(135deg, var(--color-surface-dark), var(--color-border));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    color: var(--color-text-light);
+    opacity: 0.7;
+    margin-bottom: 15px;
+}
+
+.event-details {
+    padding: 15px 20px 20px;
+}
+
+.event-details h3 {
+    font-size: 1.4rem;
+    margin-top: 0;
+    color: var(--color-primary);
+}
+
+.event-meta span {
+    font-size: 0.9rem;
+    color: var(--color-text-light);
+    opacity: 0.6;
+    margin-right: 15px;
+}
+
+.event-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid var(--color-border);
+}
+
+.event-price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-text-light);
+}
+
+.btn-small {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+}
+
+.view-all {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.view-all-link {
+    font-size: 1.1rem;
+    color: var(--color-secondary);
+    text-decoration: none;
+}
+
+.view-all-link:hover {
+    text-decoration: underline;
+}
+
+/* --- 3. RESPONSIVENESS --- */
+
+@media (max-width: 600px) {
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+    .hero-section {
+        padding: 60px 20px;
+    }
+}

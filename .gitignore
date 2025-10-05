@@ -1,0 +1,15 @@
+# 1. Critical for Security: Prevents deployment of your database connection string
+.env
+
+# 2. Node/Dependencies: Prevents massive project size and conflicts
+/node_modules
+/package-lock.json
+
+# 3. Build Artifacts: Files generated during build that should not be tracked by Git
+/Frontend/build
+/Frontend/dist
+/Backend/node_modules
+
+# 4. Logs and other OS files
+*.log
+.DS_Store

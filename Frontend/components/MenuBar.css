@@ -1,0 +1,84 @@
+/* Frontend/src/components/MenuBar.css */
+
+/* --- 1. HEADER CONTAINER --- */
+.navbar-header {
+  background-color: var(--color-surface-dark); 
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); 
+  position: sticky; 
+  top: 0;
+  z-index: 1000; 
+}
+
+.navbar-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* --- 2. BRANDING --- */
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--color-primary); 
+  text-decoration: none;
+  letter-spacing: 0.5px;
+}
+
+/* --- 3. NAVIGATION LINKS --- */
+
+/* The empty .navbar-nav and .nav-item rulesets have been REMOVED to fix the warning. */
+
+.nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 30px; 
+}
+
+.nav-link {
+  color: var(--color-text-light);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 5px 0;
+  transition: color 0.3s, border-bottom 0.3s;
+}
+
+.nav-link:hover {
+  color: var(--color-primary); 
+  border-bottom: 2px solid var(--color-primary);
+}
+
+/* Call-to-Action (CTA) Link - Makes "Book Event" stand out */
+.nav-cta {
+  background-color: var(--color-primary);
+  color: var(--color-background-dark); 
+  padding: 8px 18px;
+  border-radius: 50px;
+  font-weight: 700;
+}
+
+.nav-cta:hover {
+  background-color: #e04449; 
+  color: white;
+  transform: scale(1.05); 
+  border-bottom: none;
+}
+
+/* --- 4. RESPONSIVENESS (Optional, for mobile) --- */
+@media (max-width: 768px) {
+  .navbar-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  
+  .nav-list {
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 10px;
+  }
+}
